@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0a0a0f">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:padding="32dp"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@android:drawable/ic_lock_idle_lock"
+            android:tint="#f97316"
+            android:layout_marginBottom="24dp" />
+
+        <TextView
+            android:id="@+id/ransom_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your files have been encrypted"
+            android:textColor="#f97316"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:id="@+id/ransom_body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Send 0.5 BTC to the address below to decrypt your files."
+            android:textColor="#94a3b8"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:layout_marginBottom="24dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Wallet Address:"
+            android:textColor="#64748b"
+            android:textSize="12sp"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/ransom_wallet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="bc1q..."
+            android:textColor="#f97316"
+            android:textSize="12sp"
+            android:fontFamily="monospace"
+            android:gravity="center"
+            android:layout_marginBottom="32dp"
+            android:padding="12dp"
+            android:background="#1e293b"
+            android:layout_marginHorizontal="16dp" />
+
+        <EditText
+            android:id="@+id/ransom_key_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter decryption key"
+            android:textColor="#e2e8f0"
+            android:textColorHint="#64748b"
+            android:background="#1e293b"
+            android:padding="16dp"
+            android:textSize="14sp"
+            android:inputType="textPassword"
+            android:layout_marginBottom="16dp" />
+
+        <Button
+            android:id="@+id/ransom_decrypt_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="DECRYPT FILES"
+            android:textColor="#0a0a0f"
+            android:backgroundTint="#f97316"
+            android:padding="16dp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|bottom"
+        android:layout_marginBottom="48dp"
+        android:indeterminateTint="#f97316"
+        android:visibility="gone" />
+
+</FrameLayout>

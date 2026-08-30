@@ -1,0 +1,52 @@
+import {{ useState, useEffect }} from 'react';
+import {{ useDeviceData }} from '@/hooks/useDeviceData';
+import {{ Card, CardContent, CardHeader, CardTitle }} from '@/components/ui/card';
+import {{ Button }} from '@/components/ui/button';
+import {{ Syringe }} from 'lucide-react';
+import {{ usePermission }} from '@/hooks/usePermission';
+
+export default function Injections({{ deviceId }}: {{ deviceId: string }}) {{
+  const {{ sendCommand, data, loading }} = useDeviceData(deviceId);
+  const canCommand = usePermission('device:command');
+  const [active, setActive] = useState(false);
+
+  useEffect(() => {{
+    if (deviceId) sendCommand('0xIJ', {{ action: 'status' }});
+  }}, [deviceId]);
+
+  return (
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        <h2 className="text-2xl font-bold text-orange-500 flex items-center gap-2">
+          <Syringe className="h-6 w-6" />
+          Injections
+        </h2>
+        <div className="flex gap-2">
+          {canCommand && (
+            <Button
+              variant={active ? "destructive" : "default"}
+              onClick={() => {{
+                setActive(!active);
+                sendCommand('0xIJ', {{ action: active ? 'stop' : 'start' }});
+              }}
+              className="bg-orange-600 hover:bg-orange-700"
+            >
+              {{active ? 'Stop' : 'Start'}}
+            </Button>
+          )}
+        </div>
+      </div>
+
+      <Card className="bg-slate-900 border-orange-900/30">
+        <CardHeader>
+          <CardTitle className="text-slate-200">Status</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <pre className="text-sm text-orange-400 font-mono bg-slate-950 p-4 rounded overflow-auto">
+            {{JSON.stringify(data, null, 2)}}
+          </pre>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}}
