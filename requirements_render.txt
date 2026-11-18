@@ -1,37 +1,42 @@
 # Gangstar Remote — Render-compatible requirements
-# pywebview and pyinstaller REMOVED: they require platform GUI libs not available on Render.
-# Those are only needed on the operator's local machine for the Windows builder.
+# pywebview and pyinstaller REMOVED (require platform GUI libs, local only)
 
+# --- Core API ---
 fastapi>=0.109.0
 uvicorn[standard]>=0.27.0
 websockets>=12.0
-sqlalchemy>=2.0.25
 
-# PostgreSQL driver (required for Render's managed PostgreSQL)
+# --- Database ---
+sqlalchemy>=2.0.25
 psycopg2-binary>=2.9.9
 asyncpg>=0.29.0
 
+# --- Auth & Security ---
 python-jose[cryptography]>=3.3.0
 passlib[bcrypt]>=1.7.4
 bcrypt>=4.0.1
+pyotp>=2.9.0
+qrcode>=7.4.2
+
+# --- Request handling ---
 python-multipart>=0.0.6
-pillow>=10.2.0
+email-validator>=2.0.0
+
+# --- Data / Serialization ---
 pydantic>=2.5.3
 pydantic-settings>=2.1.0
+pillow>=10.2.0
 pytz>=2024.1
-email-validator>=2.0.0
-telethon>=1.30.0
-
-# Performance — uvloop only on Linux (Render is Linux, so this will install)
-uvloop>=0.19.0
-httptools>=0.6.0
+python-dateutil>=2.8.2
 orjson>=3.9.0
 
-# Used in main.py (try/except import) — make it explicit
-python-dateutil>=2.8.2
-pyotp>=2.9.0
+# --- Telegram ---
+telethon>=1.30.0
 
-# Flask-based bypass server (redirect_port80 / projeto_bypass)
-# Remove if that component runs separately
+# --- Performance (Linux only, Render is Linux) ---
+uvloop>=0.19.0
+httptools>=0.6.0
+
+# --- Bypass server ---
 flask>=2.3.3
 werkzeug>=2.3.7
