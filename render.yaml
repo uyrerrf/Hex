@@ -1,8 +1,9 @@
 services:
   - type: web
     name: gangstar-remote
-    runtime: python
-    region: oregon          # change to frankfurt/singapore for lower latency to targets
+    runtime: pytho
+    plan: free
+    region: singapore          # change to frankfurt/singapore for lower latency to targets
 
     buildCommand: |
       pip install --upgrade pip
