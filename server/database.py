@@ -13,6 +13,13 @@ import os
 import sqlite3
 
 DATABASE_URL = gangstar_env.database_url()
+
+# Render injects postgresql:// — force psycopg2 driver explicitly
+if DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql+psycopg2://", 1)
+elif DATABASE_URL.startswith("postgresql://"):
+    DATABASE_URL = DATABASE_URL.replace("postgresql://", "postgresql+psycopg2://", 1)
+
 _is_sqlite = DATABASE_URL.startswith("sqlite")
 
 if _is_sqlite:
@@ -44,7 +51,9 @@ if _is_sqlite:
         pool_timeout=60,
         pool_recycle=15
     )
+
     from sqlalchemy import event
+
     @event.listens_for(engine, "connect")
     def set_sqlite_pragma(dbapi_connection, connection_record):
         try:
@@ -83,7 +92,7 @@ def checkpoint_wal():
             conn = sqlite3.connect(db_path, timeout=10)
             conn.execute("PRAGMA wal_checkpoint(TRUNCATE);")
             conn.close()
-    except Exception as e:
+    except Exception:
         pass
 
 
