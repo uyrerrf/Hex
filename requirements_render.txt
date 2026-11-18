@@ -29,6 +29,7 @@ orjson>=3.9.0
 
 # Used in main.py (try/except import) — make it explicit
 python-dateutil>=2.8.2
+pyotp>=2.9.0
 
 # Flask-based bypass server (redirect_port80 / projeto_bypass)
 # Remove if that component runs separately
