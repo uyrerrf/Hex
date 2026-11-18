@@ -251,6 +251,36 @@ try:
 except Exception as e:
     print(f"⚠️ Erro ao tentar migrar banco de dados: {e}")
 
+# ── RESET ADMIN via ENV VAR ─────────────────────────────────────────────────
+# Set RESET_ADMIN_PASSWORD=yourpassword in Render Environment to reset admin.
+# After logging in successfully, remove the env var and redeploy.
+_reset_pw = os.getenv("RESET_ADMIN_PASSWORD", "").strip()
+if _reset_pw:
+    try:
+        import bcrypt as _bcrypt
+        from database import SessionLocal as _SL
+        from models import Operator as _Op
+        _db = _SL()
+        try:
+            _admin = _db.query(_Op).filter(_Op.username == "admin").first()
+            if _admin:
+                _hashed = _bcrypt.hashpw(_reset_pw.encode("utf-8"), _bcrypt.gensalt()).decode("utf-8")
+                _admin.hashed_password = _hashed
+                _admin.totp_enabled    = False
+                _admin.totp_secret     = None
+                _admin.totp_temp_secret = None
+                _admin.is_active       = True
+                _admin.is_banned       = False
+                _db.commit()
+                print(f"[RESET] ✅ Admin password reset successfully.")
+            else:
+                print("[RESET] ⚠️ Admin user not found in DB.")
+        finally:
+            _db.close()
+    except Exception as _reset_err:
+        print(f"[RESET] ❌ Failed to reset admin: {_reset_err}")
+# ────────────────────────────────────────────────────────────────────────────
+
 async def periodic_wal_checkpoint():
     """Executa checkpoint do WAL e descarta conexões ociosas a cada 2 min para manter WAL compacto"""
     counter = 0
