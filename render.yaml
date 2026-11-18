@@ -1,7 +1,7 @@
 services:
   - type: web
     name: gangstar-remote
-    runtime: pytho
+    runtime: python
     plan: free
     region: singapore          # change to frankfurt/singapore for lower latency to targets
 
