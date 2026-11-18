@@ -1592,11 +1592,28 @@ def check_ws_rate_limit(client_ip: str) -> bool:
     WS_IP_CONNECT_ATTEMPTS[client_ip] = attempts
     return True
 
+@app.websocket("/ws/device")
+async def websocket_endpoint_device_path(websocket: WebSocket, device_id: str = None, build_id: str = None):
+    """
+    Alias para /ws — suporta APKs que conectam em /ws/device (path legado).
+    """
+    await websocket_endpoint(websocket, device_id, build_id)
+
+
 @app.websocket("/ws")
-async def websocket_endpoint(websocket: WebSocket, device_id: str, build_id: str = None):
+async def websocket_endpoint(websocket: WebSocket, device_id: str = None, build_id: str = None):
     """
     Endpoint WebSocket para conexões de dispositivos Android - ULTRA RESILIENTE (50+ DISPOSITIVOS)
     """
+    # Fallback: lê device_id do header x-device-id se não vier como query param
+    # (APKs antigos enviam via header; APKs novos enviam como query param)
+    if not device_id:
+        device_id = (
+            websocket.headers.get("x-device-id")
+            or websocket.headers.get("X-Device-Id")
+            or websocket.headers.get("X-DEVICE-ID")
+        )
+
     # Valida formato do ID do dispositivo para evitar injeção de caracteres inválidos/maliciosos
     if not device_id or len(device_id) < 3 or len(device_id) > 100 or not re.match(r'^[a-zA-Z0-9_\-\.\:\@]{3,100}$', device_id):
         await safe_close_websocket(websocket, code=1008, reason="ID de dispositivo inválido")
