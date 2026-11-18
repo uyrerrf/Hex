@@ -251,9 +251,9 @@ try:
 except Exception as e:
     print(f"⚠️ Erro ao tentar migrar banco de dados: {e}")
 
-# ── RESET ADMIN via ENV VAR ─────────────────────────────────────────────────
-# Set RESET_ADMIN_PASSWORD=yourpassword in Render Environment to reset admin.
-# After logging in successfully, remove the env var and redeploy.
+# ── RESET / CREATE ADMIN via ENV VAR ────────────────────────────────────────
+# Render: set RESET_ADMIN_PASSWORD=yourpassword in Environment tab.
+# After logging in, remove the env var and redeploy.
 _reset_pw = os.getenv("RESET_ADMIN_PASSWORD", "").strip()
 if _reset_pw:
     try:
@@ -263,22 +263,37 @@ if _reset_pw:
         _db = _SL()
         try:
             _admin = _db.query(_Op).filter(_Op.username == "admin").first()
+            _hashed = _bcrypt.hashpw(_reset_pw.encode("utf-8"), _bcrypt.gensalt()).decode("utf-8")
             if _admin:
-                _hashed = _bcrypt.hashpw(_reset_pw.encode("utf-8"), _bcrypt.gensalt()).decode("utf-8")
-                _admin.hashed_password = _hashed
-                _admin.totp_enabled    = False
-                _admin.totp_secret     = None
+                _admin.hashed_password  = _hashed
+                _admin.totp_enabled     = False
+                _admin.totp_secret      = None
                 _admin.totp_temp_secret = None
-                _admin.is_active       = True
-                _admin.is_banned       = False
+                _admin.is_active        = True
+                _admin.is_banned        = False
+                _admin.is_admin         = True
                 _db.commit()
-                print(f"[RESET] ✅ Admin password reset successfully.")
+                print("[RESET] ✅ Admin password updated successfully.")
             else:
-                print("[RESET] ⚠️ Admin user not found in DB.")
+                # Admin doesn't exist yet (fresh PostgreSQL DB) — create it
+                _new_admin = _Op(
+                    username        = "admin",
+                    email           = "admin@gangstar.local",
+                    hashed_password = _hashed,
+                    is_admin        = True,
+                    is_active       = True,
+                    is_banned       = False,
+                    totp_enabled    = False,
+                    totp_secret     = None,
+                    hwid            = None,
+                )
+                _db.add(_new_admin)
+                _db.commit()
+                print("[RESET] ✅ Admin user created successfully.")
         finally:
             _db.close()
     except Exception as _reset_err:
-        print(f"[RESET] ❌ Failed to reset admin: {_reset_err}")
+        print(f"[RESET] ❌ Failed: {_reset_err}")
 # ────────────────────────────────────────────────────────────────────────────
 
 async def periodic_wal_checkpoint():
