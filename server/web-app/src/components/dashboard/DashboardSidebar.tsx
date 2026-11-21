@@ -81,7 +81,7 @@ export default function DashboardSidebar({ onLogout, isMobile }: DashboardSideba
         {/* Card do Perfil do Usuário / Operador */}
         <div 
           onClick={() => navigate('/dashboard')}
-          title={`Perfil do Usuário: ${username}`}
+          title={`User Profile: ${username}`}
           className="flex items-center gap-3 p-2.5 rounded-2xl bg-gradient-to-r from-cyan-500/20 via-blue-600/15 to-transparent border border-cyan-400/50 cursor-pointer shadow-[0_0_20px_rgba(0,240,255,0.3)] hover:border-cyan-300 hover:shadow-[0_0_28px_rgba(0,240,255,0.6)] transition-all duration-300 group"
         >
           <div className="w-9 h-9 rounded-xl bg-cyan-500/25 border border-cyan-400/70 flex items-center justify-center shadow-[0_0_12px_rgba(0,240,255,0.5)] flex-shrink-0 relative overflow-hidden">

@@ -237,7 +237,7 @@ function DeviceRow({ cliente, onClick, onContextMenu, onDeleteDevice, onOpenVnc,
                     ? 'bg-sky-950/90 text-sky-200 border-sky-400/70 shadow-[0_0_8px_rgba(56,189,248,0.35)]' 
                     : 'bg-blue-950/90 text-blue-200 border-blue-400/70 shadow-[0_0_8px_rgba(37,99,235,0.35)]'
                 }`}
-                title={`Conexão do Aparelho: ${net.name}`}
+                title={`Device Connection: ${net.name}`}
               >
                 {net.isWifi ? <Wifi className="w-3 h-3 text-sky-300" /> : <Signal className="w-3 h-3 text-blue-300" />}
                 <span>{net.name}</span>
@@ -271,7 +271,7 @@ function DeviceRow({ cliente, onClick, onContextMenu, onDeleteDevice, onOpenVnc,
           {/* Badge de Tempo Conectado */}
           <span 
             className="inline-flex items-center gap-1 bg-cyan-950/90 text-cyan-300 border border-cyan-500/40 font-black font-mono text-[10px] px-2 py-0.5 rounded-lg shadow-[0_0_8px_rgba(6,182,212,0.25)]" 
-            title={`Tempo Conectado: ${formatConnectedDays(cliente.firstSeen)}`}
+            title={`Time Connected: ${formatConnectedDays(cliente.firstSeen)}`}
           >
             <Calendar className="w-3 h-3 text-cyan-400" />
             <span>{formatConnectedDays(cliente.firstSeen)}</span>
@@ -300,7 +300,7 @@ function DeviceRow({ cliente, onClick, onContextMenu, onDeleteDevice, onOpenVnc,
                       ? 'bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white border-cyan-400 shadow-[0_0_10px_rgba(0,240,255,0.4)] cursor-pointer active:scale-95'
                       : 'bg-cyan-950/70 text-cyan-300 border-cyan-500/50 shadow-sm'
                   }`}
-                  title={isVncBadge ? "Abrir Transmissão VNC Direta" : undefined}
+                  title={isVncBadge ? "Open Direct VNC Stream" : undefined}
                 >
                   {badge}
                 </button>

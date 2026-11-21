@@ -139,7 +139,7 @@ export default function ContextMenu({ visible, x, y, cliente, onClose, onRename,
           <p className="text-white font-semibold truncate">{cliente.modelName || cliente.tag}</p>
           <p className="text-cyan-400 font-mono text-xs truncate">{cliente.ip}</p>
           {!isOnline && (
-            <p className="text-red-400 text-[10px] mt-1">Dispositivo offline</p>
+            <p className="text-red-400 text-[10px] mt-1">Device offline</p>
           )}
         </div>
 
@@ -157,7 +157,7 @@ export default function ContextMenu({ visible, x, y, cliente, onClose, onRename,
                   key={item.id}
                   type="button"
                   disabled={itemDisabled}
-                  title={item.hint ?? (itemDisabled && !isOnline ? 'Dispositivo offline' : undefined)}
+                  title={item.hint ?? (itemDisabled && !isOnline ? 'Device offline' : undefined)}
                   onClick={() => handleAction(item)}
                   className={`w-full text-left px-3 py-1.5 flex items-center gap-2 transition-colors ${
                     itemDisabled
