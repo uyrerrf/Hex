@@ -85,7 +85,7 @@ export function mapDeviceToCliente(device: Device, hideIps: boolean = true): Cli
     ip: hideIps ? maskIp(rawIp) : (rawIp?.trim() || '—'),
     android: androidVersion,
     badges,
-    model: device.model || 'Dispositivo',
+    model: device.model || 'Device',
     manufacturer: device.manufacturer || '—',
     firstSeen: device.first_seen,
     lastSeen: device.last_seen,

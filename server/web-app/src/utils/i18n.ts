@@ -20,7 +20,7 @@ export function getCurrentLanguage(): Language {
   if (saved && (saved === 'pt' || saved === 'en' || saved === 'es' || saved === 'zh')) {
     return saved as Language;
   }
-  return 'pt';
+  return 'en';
 }
 
 export function setPanelLanguage(lang: Language) {
@@ -962,7 +962,7 @@ export function useTranslation() {
   }, []);
 
   const t = (key: string): string => {
-    return TRANSLATIONS[lang]?.[key] || TRANSLATIONS.pt[key] || key;
+    return TRANSLATIONS[lang]?.[key] || TRANSLATIONS.en[key] || key;
   };
 
   return { t, lang, setLang: setPanelLanguage };
