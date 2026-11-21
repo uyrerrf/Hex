@@ -161,10 +161,10 @@ export default function TelegramConfig() {
       
       if (data.status === 'success') {
         setStep('connected');
-        setSuccess(`Connected as ${data.user}!`);
+        setSuccess(`Conectado como ${data.user}!`);
       } else if (data.status === 'password_needed') {
         setStep('password');
-        setSuccess('2FA password required');
+        setSuccess('Senha 2FA necessária');
       } else if (data.status === 'error') {
         setError(data.message);
       }
@@ -193,7 +193,7 @@ export default function TelegramConfig() {
       
       if (data.status === 'success') {
         setStep('connected');
-        setSuccess(`Connected as ${data.user}!`);
+        setSuccess(`Conectado como ${data.user}!`);
       } else if (data.status === 'error') {
         setError(data.message);
       }
@@ -212,7 +212,7 @@ export default function TelegramConfig() {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       setStep('config');
-      setSuccess('Disconnected');
+      setSuccess('Desconectado');
       fetchStatus();
     } catch (e: any) {
       setError(e.message);
@@ -278,7 +278,7 @@ export default function TelegramConfig() {
             </div>
             <div className="flex items-center gap-2">
               <div className={`w-3 h-3 rounded-full ${status?.connected ? 'bg-green-500 animate-pulse' : 'bg-gray-500'}`}></div>
-              <span className="text-gray-300">Connected</span>
+              <span className="text-gray-300">Conectado</span>
             </div>
             {status?.phone && (
               <div className="flex items-center gap-2 col-span-2">

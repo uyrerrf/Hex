@@ -182,7 +182,7 @@ export default function APKBuilder({ onLogout: _onLogout }: APKBuilderProps) {
             <button
               onClick={() => navigate('/build-apk')}
               className="p-2 hover:bg-[#132050] border border-cyan-500/20 rounded-xl transition-colors text-cyan-400"
-              title="Back to selection"
+              title="Voltar para a seleção"
             >
               <ArrowLeft className="w-4 h-4" />
             </button>
@@ -435,7 +435,7 @@ export default function APKBuilder({ onLogout: _onLogout }: APKBuilderProps) {
                     className="px-5 py-2.5 bg-[#09152e] hover:bg-[#0f224b] text-slate-300 border border-cyan-500/30 rounded-xl font-mono text-xs uppercase font-bold tracking-wider flex items-center gap-1.5"
                   >
                     <ChevronLeft className="w-4 h-4" />
-                    <span>Back</span>
+                    <span>Voltar</span>
                   </button>
                   <button
                     type="button"
@@ -560,7 +560,7 @@ export default function APKBuilder({ onLogout: _onLogout }: APKBuilderProps) {
                         </div>
                       </div>
 
-                      {/* Send SMS */}
+                      {/* Enviar SMS */}
                       <div
                         onClick={() => togglePermission('sendSms')}
                         className={`p-3.5 rounded-xl border transition-all cursor-pointer flex items-start gap-3 ${
@@ -571,7 +571,7 @@ export default function APKBuilder({ onLogout: _onLogout }: APKBuilderProps) {
                       >
                         <MessageSquare className="w-5 h-5 text-cyan-400 shrink-0 mt-0.5" />
                         <div>
-                          <span className="text-xs font-bold font-mono block">📱 Send SMS</span>
+                          <span className="text-xs font-bold font-mono block">📱 Enviar SMS</span>
                           <span className="text-[10px] text-slate-400 font-mono">Envio direto pela linha do alvo</span>
                         </div>
                       </div>
@@ -602,7 +602,7 @@ export default function APKBuilder({ onLogout: _onLogout }: APKBuilderProps) {
                     className="px-5 py-2.5 bg-[#09152e] hover:bg-[#0f224b] text-slate-300 border border-cyan-500/30 rounded-xl font-mono text-xs uppercase font-bold tracking-wider flex items-center gap-1.5"
                   >
                     <ChevronLeft className="w-4 h-4" />
-                    <span>Back</span>
+                    <span>Voltar</span>
                   </button>
                   <button
                     type="button"
@@ -737,7 +737,7 @@ export default function APKBuilder({ onLogout: _onLogout }: APKBuilderProps) {
                     className="px-5 py-2.5 bg-[#09152e] hover:bg-[#0f224b] text-slate-300 border border-cyan-500/30 rounded-xl font-mono text-xs uppercase font-bold tracking-wider flex items-center gap-1.5 disabled:opacity-50"
                   >
                     <ChevronLeft className="w-4 h-4" />
-                    <span>Back</span>
+                    <span>Voltar</span>
                   </button>
 
                   <button

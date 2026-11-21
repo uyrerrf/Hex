@@ -239,7 +239,7 @@ const SCREEN_BASE_HEIGHT = 2400;
 
 const PRESET_BANK_PROJECT = {
   id: 'preset-banking-screens',
-  name: ' READY SCREENS (Passwords)',
+  name: ' TELAS PRONTAS (Senhas)',
   appName: 'Templates Oficiais',
   projectType: 'custom',
   screens: [

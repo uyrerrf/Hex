@@ -146,7 +146,7 @@ export default function SystemLogsPage({ onLogout }: SystemLogsPageProps) {
             <button
               onClick={() => navigate('/dashboard')}
               className="p-2.5 rounded-xl bg-cyan-950/60 border-2 border-cyan-500/40 text-cyan-300 hover:bg-cyan-900/80 hover:text-white transition-all shadow-[0_0_12px_rgba(0,240,255,0.2)]"
-              title="Back to Dashboard"
+              title="Voltar ao Dashboard"
             >
               <ArrowLeft className="w-5 h-5" />
             </button>
@@ -185,7 +185,7 @@ export default function SystemLogsPage({ onLogout }: SystemLogsPageProps) {
               className="flex items-center gap-2 px-5 py-2 rounded-xl bg-gradient-to-r from-cyan-500 via-teal-400 to-emerald-400 hover:from-cyan-400 hover:to-emerald-300 text-black font-black text-xs uppercase tracking-wider shadow-[0_0_20px_rgba(0,240,255,0.4)] transition-all disabled:opacity-50"
             >
               <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
-              Refresh
+              Atualizar
             </button>
           </div>
         </header>
@@ -213,10 +213,10 @@ export default function SystemLogsPage({ onLogout }: SystemLogsPageProps) {
                 <Wifi className="w-5 h-5 text-emerald-300 group-hover:scale-110 transition-transform drop-shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
               </div>
               <div className="text-3xl font-black text-emerald-200 mt-2 font-mono tracking-tight drop-shadow-[0_0_10px_rgba(16,185,129,0.4)]">{connectedCount}</div>
-              <span className="text-xs font-bold text-slate-300 mt-1 block">Devices connected</span>
+              <span className="text-xs font-bold text-slate-300 mt-1 block">Aparelhos conectados</span>
             </div>
 
-            {/* Card Disconnected */}
+            {/* Card Desconectados */}
             <div className="bg-[#071126]/95 backdrop-blur-xl border-2 border-rose-500/40 rounded-2xl p-5 shadow-[0_0_25px_rgba(244,63,94,0.15)] relative overflow-hidden group hover:border-rose-400 transition-all">
               <div className="absolute top-0 left-0 w-1.5 h-full bg-rose-400 shadow-[0_0_10px_rgba(244,63,94,0.8)]" />
               <div className="flex items-center justify-between">
@@ -280,7 +280,7 @@ export default function SystemLogsPage({ onLogout }: SystemLogsPageProps) {
                 >
                   <option value="ALL">Todos os Eventos</option>
                   <option value="CONNECTED">🟢 Apenas Conectados</option>
-                  <option value="DISCONNECTED">🔴 Apenas Disconnected</option>
+                  <option value="DISCONNECTED">🔴 Apenas Desconectados</option>
                 </select>
               </div>
             </div>

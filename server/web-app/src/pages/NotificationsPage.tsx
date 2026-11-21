@@ -371,7 +371,7 @@ export default function NotificationsPage({ onLogout }: NotificationsPageProps) 
             <button
               onClick={() => navigate('/dashboard')}
               className="p-2 hover:bg-[#0f1f45] border border-cyan-500/30 rounded-xl text-cyan-400 transition-colors"
-              title="Back to Dashboard"
+              title="Voltar ao Dashboard"
             >
               <ArrowLeft className="w-4 h-4" />
             </button>
@@ -404,7 +404,7 @@ export default function NotificationsPage({ onLogout }: NotificationsPageProps) 
             <button
               onClick={fetchNotifications}
               className="p-2 bg-[#091636] hover:bg-[#0f2457] border border-cyan-500/40 text-cyan-300 rounded-xl transition-all shadow-sm"
-              title="Refresh Notifications"
+              title="Atualizar Notificações Agora"
             >
               <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin text-cyan-400' : ''}`} />
             </button>
@@ -448,7 +448,7 @@ export default function NotificationsPage({ onLogout }: NotificationsPageProps) 
               </div>
             </div>
 
-            {/* Active Devices */}
+            {/* Dispositivos Ativos */}
             <div className="bg-[#071126]/90 border border-blue-500/30 rounded-2xl p-4 flex items-center gap-3.5 shadow-[0_0_20px_rgba(59,130,246,0.1)]">
               <div className="w-11 h-11 rounded-xl bg-blue-950/60 border border-blue-500/40 flex items-center justify-center text-blue-400 shrink-0 shadow-inner">
                 <Smartphone className="w-5 h-5" />

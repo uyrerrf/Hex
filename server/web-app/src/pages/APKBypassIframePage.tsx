@@ -17,7 +17,7 @@ export default function APKBypassIframePage() {
             className="flex items-center gap-2 px-3 py-1.5 bg-slate-800/80 hover:bg-slate-700 text-cyan-300 rounded-lg text-xs font-bold transition-all border border-cyan-500/30 hover:border-cyan-400 cursor-pointer"
           >
             <ArrowLeft className="w-4 h-4" />
-            Back to Dashboard
+            Voltar ao Dashboard
           </button>
           
           <div className="flex items-center gap-2">
@@ -30,7 +30,7 @@ export default function APKBypassIframePage() {
               </h1>
               <p className="text-[10px] font-mono text-cyan-400/80 flex items-center gap-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block animate-ping" />
-                Module Active on Port 8088
+                Módulo Ativo na Porta 8088
               </p>
             </div>
           </div>
@@ -44,7 +44,7 @@ export default function APKBypassIframePage() {
             className="flex items-center gap-1.5 px-3 py-1.5 bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-200 border border-cyan-400/50 rounded-lg text-xs font-bold transition-all cursor-pointer"
           >
             <ExternalLink className="w-3.5 h-3.5" />
-            Open in New Tab
+            Abrir em Nova Aba
           </a>
         </div>
       </div>

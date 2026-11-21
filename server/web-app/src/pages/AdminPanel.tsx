@@ -100,7 +100,7 @@ export default function AdminPanel({ onLogout }: AdminPanelProps) {
       await adminAPI.createUser(newUser);
       setShowCreateModal(false);
       setNewUser({ username: '', email: '', password: '', is_admin: false, expiration_days: 0, notes: '' });
-      setSuccess('User created successfully!');
+      setSuccess('Usuário criado com sucesso!');
       loadData();
     } catch (err: any) {
       setError(err.response?.data?.detail || 'Erro ao criar usuário');
@@ -120,7 +120,7 @@ export default function AdminPanel({ onLogout }: AdminPanelProps) {
       
       await adminAPI.updateUser(editingUser.id, updateData);
       setEditingUser(null);
-      setSuccess('User updated!');
+      setSuccess('Usuário atualizado!');
       loadData();
     } catch (err: any) {
       setError(err.response?.data?.detail || 'Erro ao atualizar usuário');
@@ -131,10 +131,10 @@ export default function AdminPanel({ onLogout }: AdminPanelProps) {
     try {
       if (isBanned) {
         await adminAPI.unbanUser(userId);
-        setSuccess('User unbanned!');
+        setSuccess('Usuário desbanido!');
       } else {
         await adminAPI.banUser(userId);
-        setSuccess('User banned!');
+        setSuccess('Usuário banido!');
       }
       loadData();
     } catch (err: any) {
@@ -146,7 +146,7 @@ export default function AdminPanel({ onLogout }: AdminPanelProps) {
     if (!confirm('Tem certeza que deseja excluir este usuário?')) return;
     try {
       await adminAPI.deleteUser(userId);
-      setSuccess('User deleted!');
+      setSuccess('Usuário excluído!');
       loadData();
     } catch (err: any) {
       setError(err.response?.data?.detail || 'Erro ao excluir usuário');

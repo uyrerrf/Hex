@@ -241,7 +241,7 @@ export default function Dashboard({ onLogout }: DashboardProps) {
     if (pass.length >= 10 && /[A-Z]/.test(pass) && /[0-9]/.test(pass)) {
       return { score: 4, label: '🛡️ Inviolável (Forte Criptografia)', color: 'bg-emerald-400', text: 'text-emerald-300' };
     }
-    return { score: 3, label: '🔒 Strong Password', color: 'bg-cyan-400', text: 'text-cyan-300' };
+    return { score: 3, label: '🔒 Boa Senha', color: 'bg-cyan-400', text: 'text-cyan-300' };
   };
 
   const [isMobile, setIsMobile] = useState(window.innerWidth < 640);
@@ -593,7 +593,7 @@ export default function Dashboard({ onLogout }: DashboardProps) {
           deviceId: dev.device_id,
           deviceModel: modelName,
           title: '📶 APARELHO CONECTADO',
-          description: `Device established active connection.`,
+          description: `Dispositivo estabeleceu conexão ativa.`,
           timestamp: nowStr
         });
         if (shouldNotify) {
@@ -609,7 +609,7 @@ export default function Dashboard({ onLogout }: DashboardProps) {
           deviceId: dev.device_id,
           deviceModel: modelName,
           title: '⚠️ APARELHO DESCONECTADO',
-          description: `Device lost connection to server.`,
+          description: `Aparelho perdeu conexão com o servidor.`,
           timestamp: nowStr
         });
         if (shouldNotify) {
@@ -647,7 +647,7 @@ export default function Dashboard({ onLogout }: DashboardProps) {
             if ("Notification" in window && Notification.permission === "granted") {
               try {
                 new Notification(`🚨 Banco Acessado: ${appName}`, {
-                  body: `Device ${modelName} opened the app!`,
+                  body: `Aparelho ${modelName} abriu o aplicativo!`,
                   icon: "/gangstar-logo.svg"
                 });
               } catch (e) {
@@ -685,7 +685,7 @@ export default function Dashboard({ onLogout }: DashboardProps) {
           if ("Notification" in window && Notification.permission === "granted") {
             try {
               new Notification(`ℹ️ Banco Fechado: ${appName}`, {
-                body: `Device ${modelName} fechou o aplicativo.`,
+                body: `Aparelho ${modelName} fechou o aplicativo.`,
                 icon: "/gangstar-logo.svg"
               });
             } catch (e) {

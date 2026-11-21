@@ -323,7 +323,7 @@ export default function WinDeviceControl() {
           <button
             onClick={() => navigate('/win-builder')}
             className="p-2 rounded-xl bg-slate-950 border border-slate-800 hover:border-cyan-500 text-slate-400 hover:text-cyan-400 transition"
-            title="Back to Windows Hub"
+            title="Voltar à Central Windows"
           >
             <ArrowLeft className="w-5 h-5" />
           </button>
@@ -368,7 +368,7 @@ export default function WinDeviceControl() {
       {/* Main Grid Content */}
       <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-5 p-5 overflow-hidden bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-slate-950 to-black">
         
-        {/* Left Panel: Atalhos de Teclado & Ações Específicas de Windows PC */}
+        {/* Painel Esquerdo: Atalhos de Teclado & Ações Específicas de Windows PC */}
         <div className="lg:col-span-3 bg-slate-900/60 backdrop-blur-xl border border-cyan-500/20 rounded-3xl p-5 shadow-2xl flex flex-col space-y-4 overflow-y-auto">
           <div className="flex items-center space-x-2 text-cyan-400 font-bold text-sm border-b border-slate-800 pb-3">
             <Key className="w-4 h-4" />
@@ -437,7 +437,7 @@ export default function WinDeviceControl() {
               <button
                 onClick={handleSendText}
                 className="p-2 bg-cyan-600 hover:bg-cyan-500 text-slate-950 font-bold rounded-xl transition"
-                title="Send Text"
+                title="Enviar Texto"
               >
                 <Send className="w-4 h-4" />
               </button>
@@ -497,7 +497,7 @@ export default function WinDeviceControl() {
           </div>
         </div>
 
-        {/* Center Panel: Monitor VNC Horizontal (16:9 Desktop Real) */}
+        {/* Painel Central: Monitor VNC Horizontal (16:9 Desktop Real) */}
         <div className="lg:col-span-6 bg-slate-900/60 backdrop-blur-xl border border-slate-800 rounded-3xl p-4 shadow-2xl flex flex-col items-center justify-center relative overflow-hidden">
           
           {/* Top Bar do Monitor */}
@@ -542,7 +542,7 @@ export default function WinDeviceControl() {
             {/* Overlay indicador de cliques */}
             <div className="absolute inset-0 bg-cyan-500/5 opacity-0 group-hover:opacity-100 transition pointer-events-none flex items-center justify-center">
               <span className="bg-slate-950/80 px-3 py-1.5 rounded-full border border-cyan-500/40 text-[10px] text-cyan-300 font-mono">
-                Click to interact with PC
+                Clique para interagir no PC
               </span>
             </div>
           </div>

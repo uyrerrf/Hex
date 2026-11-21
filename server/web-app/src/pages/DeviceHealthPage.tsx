@@ -195,7 +195,7 @@ export default function DeviceHealthPage({ onLogout }: DeviceHealthPageProps) {
             <button
               onClick={() => navigate('/dashboard')}
               className="p-2.5 rounded-xl bg-cyan-950/60 border-2 border-cyan-500/40 text-cyan-300 hover:bg-cyan-900/80 hover:text-white transition-all shadow-[0_0_12px_rgba(0,240,255,0.2)]"
-              title="Back to Dashboard"
+              title="Voltar ao Dashboard"
             >
               <ArrowLeft className="w-5 h-5" />
             </button>
@@ -204,7 +204,7 @@ export default function DeviceHealthPage({ onLogout }: DeviceHealthPageProps) {
               <div className="flex items-center gap-2">
                 <Activity className="w-6 h-6 text-cyan-400 drop-shadow-[0_0_10px_rgba(0,240,255,0.9)]" />
                 <h1 className="text-xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-sky-300 to-blue-400 uppercase">
-                  Pings & Device Management
+                  Pings & Gerenciamento de Aparelhos
                 </h1>
               </div>
               <p className="text-xs font-bold text-slate-300 mt-0.5">
@@ -234,7 +234,7 @@ export default function DeviceHealthPage({ onLogout }: DeviceHealthPageProps) {
               className="flex items-center gap-2 px-5 py-2 rounded-xl bg-gradient-to-r from-cyan-500 via-sky-400 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-black font-black text-xs uppercase tracking-wider shadow-[0_0_20px_rgba(0,240,255,0.4)] transition-all disabled:opacity-50"
             >
               <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
-              Refresh
+              Atualizar
             </button>
           </div>
         </header>
@@ -258,13 +258,13 @@ export default function DeviceHealthPage({ onLogout }: DeviceHealthPageProps) {
             <div className="bg-[#071126]/95 backdrop-blur-xl border-2 border-cyan-500/40 rounded-2xl p-5 shadow-[0_0_25px_rgba(0,240,255,0.15)] relative overflow-hidden group hover:border-cyan-400 transition-all">
               <div className="absolute top-0 left-0 w-1.5 h-full bg-cyan-400 shadow-[0_0_10px_rgba(0,240,255,0.8)]" />
               <div className="flex items-center justify-between">
-                <span className="text-xs font-black text-cyan-300 uppercase tracking-widest">Deviceos Ativos</span>
+                <span className="text-xs font-black text-cyan-300 uppercase tracking-widest">Aparelhos Ativos</span>
                 <Smartphone className="w-5 h-5 text-cyan-300 group-hover:scale-110 transition-transform drop-shadow-[0_0_8px_rgba(0,240,255,0.8)]" />
               </div>
               <div className="text-3xl font-black text-white mt-2 font-mono tracking-tight drop-shadow-[0_0_10px_rgba(0,240,255,0.4)]">
                 {onlineCount} <span className="text-xs font-bold text-cyan-300/80">/ {totalCount} online</span>
               </div>
-              <span className="text-xs font-bold text-slate-300 mt-1 block">Connected to C&C</span>
+              <span className="text-xs font-bold text-slate-300 mt-1 block">Conectados à C&C</span>
             </div>
 
             {/* Latência Média */}
@@ -326,7 +326,7 @@ export default function DeviceHealthPage({ onLogout }: DeviceHealthPageProps) {
                 onChange={(e) => setFilterStatus(e.target.value)}
                 className="bg-[#020714] border-2 border-cyan-500/40 rounded-xl px-4 py-2.5 text-xs font-black text-cyan-200 focus:outline-none focus:border-cyan-400 font-mono w-full sm:w-auto shadow-md"
               >
-                <option value="ALL">Todos os Deviceos ({totalCount})</option>
+                <option value="ALL">Todos os Aparelhos ({totalCount})</option>
                 <option value="ONLINE">🔵 Apenas Online ({onlineCount})</option>
                 <option value="OFFLINE">🔴 Apenas Offline ({offlineCount})</option>
               </select>
@@ -338,7 +338,7 @@ export default function DeviceHealthPage({ onLogout }: DeviceHealthPageProps) {
             {loading && devices.length === 0 ? (
               <div className="col-span-full py-20 text-center bg-[#071126]/90 backdrop-blur-xl rounded-2xl border-2 border-cyan-500/30 shadow-[0_0_30px_rgba(0,240,255,0.1)]">
                 <RefreshCw className="w-10 h-10 animate-spin text-cyan-400 mx-auto mb-3 drop-shadow-[0_0_12px_rgba(0,240,255,0.8)]" />
-                <h3 className="text-base font-black text-white uppercase tracking-wider">Carregando Situação dos Deviceos...</h3>
+                <h3 className="text-base font-black text-white uppercase tracking-wider">Carregando Situação dos Aparelhos...</h3>
               </div>
             ) : filteredDevices.length === 0 ? (
               <div className="col-span-full py-16 text-center bg-[#071126]/95 backdrop-blur-xl rounded-2xl border-2 border-cyan-500/30 p-8 shadow-[0_0_30px_rgba(0,240,255,0.1)]">
