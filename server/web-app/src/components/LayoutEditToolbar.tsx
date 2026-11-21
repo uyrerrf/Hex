@@ -31,7 +31,7 @@ export const LayoutEditToolbar: React.FC<LayoutEditToolbarProps> = ({
         {/* Instruções */}
         <div className="text-xs text-gray-400">
           <span className="text-yellow-400">Arraste bordas</span> para redimensionar • 
-          <span className="text-yellow-400"> Clique em botões</span> para editar cores
+          <span className="text-yellow-400"> Click buttons</span> to edit colors
         </div>
 
         <div className="w-px h-6 bg-gray-600" />
@@ -70,7 +70,7 @@ export const LayoutEditToolbar: React.FC<LayoutEditToolbarProps> = ({
             className="px-3 py-1.5 text-xs bg-red-600 hover:bg-red-500 text-white rounded-lg transition-colors"
             title="Sair do modo edição"
           >
-            ✖ Fechar
+            ✖ Close
           </button>
         </div>
       </div>

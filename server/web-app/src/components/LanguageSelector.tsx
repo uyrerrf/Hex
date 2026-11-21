@@ -173,7 +173,7 @@ export default function LanguageSelector({ className = '' }: LanguageSelectorPro
         type="button"
         onClick={toggleDropdown}
         className="flex items-center gap-2 px-3 py-2 bg-slate-900/95 border border-cyan-500/50 hover:border-cyan-300 text-slate-100 hover:text-cyan-200 rounded-xl text-xs font-bold font-mono transition-all shadow-[0_0_15px_rgba(0,240,255,0.25)] hover:shadow-[0_0_22px_rgba(0,240,255,0.5)] group cursor-pointer"
-        title="Selecionar Idioma do Painel / Select Language"
+        title="Select Panel Language"
       >
         <Globe className="w-4 h-4 text-cyan-400 group-hover:rotate-45 transition-transform" />
         <FlagIcon code={selectedOpt.code} className="w-4 h-3" />

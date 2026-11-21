@@ -16,7 +16,7 @@ export const VoiceCallModal: React.FC<VoiceCallModalProps> = ({
   isOpen,
   onClose,
   deviceId,
-  deviceName = 'Aparelho Alvo',
+  deviceName = 'Target Device',
   onSendCommand,
 }) => {
   // Voice 2-Way State
@@ -119,7 +119,7 @@ export const VoiceCallModal: React.FC<VoiceCallModalProps> = ({
 
       ws.onopen = () => {
         setIsInCall(true);
-        setStatusMessage('🟢 Áudio 2-Way Conectado ao Vivo com o Celular!');
+        setStatusMessage('🟢 2-Way Audio Live Connected to Device!');
       };
 
       ws.onmessage = (event) => {

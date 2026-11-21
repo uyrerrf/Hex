@@ -104,7 +104,7 @@ export const EditableButton: React.FC<EditableButtonProps> = ({
         className={`${className} ${isEditMode ? 'ring-2 ring-blue-400 ring-offset-2 ring-offset-gray-800' : ''}`}
         style={buttonStyle}
         disabled={disabled && !isEditMode}
-        title={isEditMode ? `✏️ Clique para editar cores de: ${id}` : title}
+        title={isEditMode ? `✏️ Click to edit colors: ${id}` : title}
       >
         {children}
         {isEditMode && (
@@ -193,7 +193,7 @@ export const EditableButton: React.FC<EditableButtonProps> = ({
             onClick={() => setShowColorPicker(false)}
             className="w-full mt-4 px-3 py-2 text-sm bg-red-600 hover:bg-red-500 text-white rounded-lg font-semibold transition-all"
           >
-            ✓ Fechar
+            ✓ Close
           </button>
         </div>
       )}
