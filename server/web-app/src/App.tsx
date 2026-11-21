@@ -275,7 +275,7 @@ function App() {
           path="/dashboard" 
           element={
             isAuthenticated ? 
-            <ErrorBoundary fallbackTitle="Erro no Painel Dashboard">
+            <ErrorBoundary fallbackTitle="Dashboard Panel Error">
               <Dashboard onLogout={handleLogout} />
             </ErrorBoundary> : 
             <Navigate to="/login" />
@@ -293,7 +293,7 @@ function App() {
           path="/device/:deviceId" 
           element={
             isAuthenticated ? 
-            <ErrorBoundary fallbackTitle="Erro ao carregar o Painel do Dispositivo">
+            <ErrorBoundary fallbackTitle="Error loading Device Panel">
               <DeviceControl onLogout={handleLogout} />
             </ErrorBoundary> : 
             <Navigate to="/login" />
