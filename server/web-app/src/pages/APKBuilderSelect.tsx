@@ -114,7 +114,7 @@ export default function APKBuilderSelect({ onLogout }: APKBuilderSelectProps) {
             </ul>
             
             <div className="flex items-center gap-2 text-cyan-400 font-mono text-xs uppercase tracking-wider group-hover:gap-4 transition-all">
-              <span className="font-bold">Abrir Modo Rápido</span>
+              <span className="font-bold">Open Quick Mode</span>
               <ArrowRight size={16} />
             </div>
           </div>
@@ -171,7 +171,7 @@ export default function APKBuilderSelect({ onLogout }: APKBuilderSelectProps) {
             </ul>
             
             <div className="flex items-center gap-2 text-purple-400 font-mono text-xs uppercase tracking-wider group-hover:gap-4 transition-all">
-              <span className="font-bold">Abrir Editor Visual</span>
+              <span className="font-bold">Open Visual Editor</span>
               <ArrowRight size={16} />
             </div>
           </div>
@@ -227,7 +227,7 @@ export default function APKBuilderSelect({ onLogout }: APKBuilderSelectProps) {
             </ul>
             
             <div className="flex items-center gap-2 text-emerald-400 font-mono text-xs uppercase tracking-wider group-hover:gap-4 transition-all">
-              <span className="font-bold">Abrir Duplicador</span>
+              <span className="font-bold">Open Duplicator</span>
               <ArrowRight size={16} />
             </div>
           </div>

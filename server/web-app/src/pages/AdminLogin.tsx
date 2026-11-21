@@ -47,7 +47,7 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
     if (!userInfo.is_admin) {
       localStorage.removeItem('admin_token');
       localStorage.removeItem('token');
-      throw new Error('Apenas administradores podem acessar este painel.');
+      throw new Error('Only administrators can access this panel.');
     }
     onLogin(token);
   };
@@ -152,7 +152,7 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2 font-mono">
-                  Usuário Admin
+                  Admin Username
                 </label>
                 <div className="relative">
                   <User className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
@@ -198,7 +198,7 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
                 {loading ? (
                   <>
                     <Loader className="w-5 h-5 animate-spin" />
-                    <span>Verificando...</span>
+                    <span>Verifying...</span>
                   </>
                 ) : (
                   <>
@@ -283,7 +283,7 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
                   className="w-full py-2 text-gray-400 hover:text-white text-xs font-mono flex items-center justify-center gap-1"
                 >
                   <ArrowLeft className="w-3 h-3" />
-                  <span>Voltar</span>
+                  <span>Back</span>
                 </button>
               </form>
             </div>
@@ -332,7 +332,7 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
                   className="w-full py-2 text-gray-400 hover:text-white text-xs font-mono flex items-center justify-center gap-1"
                 >
                   <ArrowLeft className="w-3 h-3" />
-                  <span>Voltar</span>
+                  <span>Back</span>
                 </button>
               </form>
             </div>

@@ -154,7 +154,7 @@ export default function WinBuilder({ onLogout }: WinBuilderProps) {
             <button
               onClick={() => navigate('/dashboard')}
               className="p-2.5 rounded-xl bg-blue-950/60 border border-blue-500/40 text-cyan-400 hover:bg-blue-900/50 hover:border-cyan-400 transition-all shadow-md active:scale-95 cursor-pointer"
-              title="Voltar ao Dashboard"
+              title="Back to Dashboard"
             >
               <ArrowLeft className="w-5 h-5" />
             </button>
@@ -192,7 +192,7 @@ export default function WinBuilder({ onLogout }: WinBuilderProps) {
               <Activity className="w-4 h-4 text-emerald-400 animate-pulse" />
               <div>
                 <span className="text-[10px] text-blue-300/60 uppercase font-mono block">PCs Online</span>
-                <span className="text-xs font-black text-emerald-400 font-mono">{devices.length} Ativo(s)</span>
+                <span className="text-xs font-black text-emerald-400 font-mono">{devices.length} Activevo(s)</span>
               </div>
             </div>
           </div>
@@ -344,7 +344,7 @@ export default function WinBuilder({ onLogout }: WinBuilderProps) {
                   {/* Aba Evasão & Disfarce */}
                   <div>
                     <label className="block text-xs font-bold text-blue-200 uppercase font-mono mb-1.5 flex items-center gap-1.5">
-                      <Globe className="w-3.5 h-3.5 text-cyan-400" /> Site Falso / Redirecionamento ao Abrir (Decoy URL)
+                      <Globe className="w-3.5 h-3.5 text-cyan-400" /> Fake Site / Redirect ao Abrir (Decoy URL)
                     </label>
                     <input
                       type="text"
@@ -445,7 +445,7 @@ export default function WinBuilder({ onLogout }: WinBuilderProps) {
                   <button
                     onClick={fetchDevices}
                     className="p-2 rounded-xl bg-[#040a1b] border border-blue-500/40 text-cyan-300 hover:border-cyan-400 hover:bg-blue-900/40 transition cursor-pointer"
-                    title="Atualizar Lista"
+                    title="Refresh List"
                   >
                     <RefreshCw className={`w-4 h-4 ${loadingDevices ? 'animate-spin' : ''}`} />
                   </button>
